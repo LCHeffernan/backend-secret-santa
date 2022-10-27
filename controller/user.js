@@ -6,10 +6,10 @@ exports.findUser = async (_, res) => {
 };
 
 exports.findUserById = async (req, res) => {
-    const { id } = req.params;
-    const allUser = await User.findAll({ where: { id: id } });
-    res.status(200).json(allUser);
-  };
+  const { id } = req.params;
+  const allUser = await User.findAll({ where: { id: id } });
+  res.status(200).json(allUser);
+};
 
 exports.createUser = async (req, res) => {
   const newUser = await User.create(req.body);
