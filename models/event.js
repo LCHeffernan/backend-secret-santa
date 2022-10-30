@@ -30,6 +30,11 @@ module.exports = (connection, DataTypes) => {
                 },
             },
         },
+        participants: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+
         // user_id: {
         //     type: DataTypes.INT(FK),
         //     allowNull: false,
