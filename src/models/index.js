@@ -11,6 +11,12 @@ const setUpDatabase = () => {
     logging: false,
   });
 
+
+  // const db = {};
+  // db.sequelize = sequelize;
+  // db.Sequelize = Sequelize;
+
+  // db.user = require("../models/user")(sequelize, Sequelize)
   const User = UserModel(connection, Sequelize);
 
   connection.sync({ alter: true });
@@ -18,6 +24,7 @@ const setUpDatabase = () => {
   return {
     User
   };
+
 };
 
-module.exports = setUpDatabase();
+module.exports = setUpDatabase()

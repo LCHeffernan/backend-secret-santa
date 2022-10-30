@@ -27,3 +27,11 @@ exports.deleteUserById = async (req, res) => {
   const userDeleted = await User.destroy({ where: { id: id } });
   res.status(200).json(userDeleted);
 };
+
+exports.allAccess = (req, res) => {
+  res.status(200).send("Public Content.")
+}
+
+exports.userBoard = (req, res) => {
+  res.status(200).send("User Content")
+}

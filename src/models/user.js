@@ -2,31 +2,31 @@ module.exports = (connection, DataTypes) => {
   const schema = {
     first_name: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {
-          args: [true],
-          msg: 'We need a first name',
-        },
-        notEmpty: {
-          args: [true],
-          msg: 'We need a first name',
-        },
-      },
+      // allowNull: false,
+      // validate: {
+      //   notNull: {
+      //     args: [true],
+      //     msg: 'We need a first name',
+      //   },
+      //   notEmpty: {
+      //     args: [true],
+      //     msg: 'We need a first name',
+      //   },
+      // },
     },
     last_name: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {
-          args: [true],
-          msg: 'We need a last name',
-        },
-        notEmpty: {
-          args: [true],
-          msg: 'We need a last name',
-        },
-      },
+      // allowNull: false,
+      // validate: {
+      //   notNull: {
+      //     args: [true],
+      //     msg: 'We need a last name',
+      //   },
+      //   notEmpty: {
+      //     args: [true],
+      //     msg: 'We need a last name',
+      //   },
+      // },
     },
     email: {
       type: DataTypes.STRING,
