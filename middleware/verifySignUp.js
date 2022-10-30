@@ -1,4 +1,4 @@
-const { User } = require("../src/models");
+const { User } = require("../models");
 
 const checkDuplicateEmail = (req, res, next) => {
     User.findOne({
