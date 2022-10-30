@@ -40,7 +40,7 @@ exports.signin = (req, res) => {
             }
 
             var token = jwt.sign({ id: user.id }, config.secret, {
-                expiresIn: 1 / 24
+                expiresIn: 86400
             });
             res.status(200).send({
                 id: user.id,
@@ -52,6 +52,6 @@ exports.signin = (req, res) => {
 
         })
         .catch(err => {
-            res.status(500).send({ message: err.message })
+            res.status(500).send({ message: err.message }, console.log(err))
         })
 }
