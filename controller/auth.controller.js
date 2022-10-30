@@ -1,5 +1,5 @@
 const config = require("../config/auth.config");
-const { User } = require("../src/models");
+const { User } = require("../models");
 
 var jwt = require("jsonwebtoken")
 var bcrypt = require("bcryptjs");
@@ -35,7 +35,7 @@ exports.signin = (req, res) => {
             if (!passwordIsValid) {
                 return res.status(401).send({
                     accessToken: null,
-                    message: "Email address and passwords do not match"
+                    message: "Email address and passwords do not match",
                 });
             }
 
@@ -47,7 +47,8 @@ exports.signin = (req, res) => {
                 first_name: user.first_name,
                 last_name: user.last_name,
                 email: user.email,
-                accessToken: token
+                accessToken: token,
+                message: `Welcome ${user.first_name}! Merry Christmas! Ho ho ho!`
             });
 
         })
