@@ -1,5 +1,6 @@
 const { User } = require("../models");
 
+//check if there is already an email on the database, if there is then send error message
 const checkDuplicateEmail = (req, res, next) => {
     User.findOne({
         where: {
