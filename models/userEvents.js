@@ -5,11 +5,14 @@ module.exports = (connection, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
-        // references: {
-        //     model: "Users",
-        //     key: "id"
-        // }
-      }
+    //     // references: {
+    //     //     model: "Users",
+    //     //     key: "id"
+    //     // }
+      },
+    //   userId: {
+    //     type: DataTypes.INTEGER,
+    //   },
     //   eventId: {
     //     type: DataTypes.INTEGER,
     //     references: {

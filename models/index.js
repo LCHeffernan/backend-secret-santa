@@ -23,8 +23,7 @@ const setUpDatabase = () => {
 
   User.hasMany(UserEvents);
   UserEvents.belongsTo(User);
-  User.hasMany(UserEvents);
-  UserEvents.belongsTo(User, { as: "BuyForId" });
+  UserEvents.belongsTo(User, { as: "BuyFor" });
   Event.hasMany(UserEvents);
   UserEvents.belongsTo(Event);
 
@@ -33,6 +32,7 @@ const setUpDatabase = () => {
   return {
     User,
     Event,
+    UserEvents
   };
 };
 
