@@ -28,9 +28,10 @@ exports.createUserEvent = async (req, res) => {
     res.status(201).json(newUserEvent);
   };
 
+  //request needs to include EventId too
   exports.updateUserEventById = async (req, res) => {
     const { id } = req.params;
-    const userEventUpdate = await UserEvents.update(req.body, { where: { id: id } });
+    const userEventUpdate = await UserEvents.update(req.body, { where: { UserId: id } });
     res.status(200).json(userEventUpdate);
   };
 

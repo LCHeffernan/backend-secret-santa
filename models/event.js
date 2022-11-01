@@ -11,7 +11,7 @@ module.exports = (connection, DataTypes) => {
             },
         },
         exchange_date: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allowNull: false,
             validate: {
                 notNull: {
@@ -21,7 +21,7 @@ module.exports = (connection, DataTypes) => {
             },
         },
         budget: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
                 notNull: {

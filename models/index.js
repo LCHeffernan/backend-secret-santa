@@ -27,6 +27,8 @@ const setUpDatabase = () => {
   Event.hasMany(UserEvents); //create connection. One thing - it allows us to use {include: Event} when returning data
   UserEvents.belongsTo(Event); //create foreign key of eventId in UserEvents model
 
+  Event.belongsTo(User, { as: "Admin" });
+
   connection.sync({ alter: true });
 
   return {
