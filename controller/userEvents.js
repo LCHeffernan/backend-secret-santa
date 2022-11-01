@@ -13,7 +13,7 @@ exports.findUserEventById = async (req, res) => {
 
   exports.findUserEventByUserId = async (req, res) => {
     const { id } = req.params;
-    const findUserEventByUserId = await UserEvents.findAll({ where: { UserId: id }, include: [User, Event]  } );
+    const findUserEventByUserId = await UserEvents.findAll({ where: { UserId: id }, include: [User, Event, { model: User, as: 'BuyFor' }]  } );
     res.status(200).json(findUserEventByUserId);
   };
 
