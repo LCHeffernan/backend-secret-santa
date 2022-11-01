@@ -3,6 +3,7 @@ const cors = require("cors");
 const userRouter = require("./router/user");
 const authRouter = require("./router/auth.routes");
 const eventRouter = require("./router/event.routes");
+const userEventRouter = require("./router/userEvents");
 
 const app = express();
 require("./router/auth.routes")
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 
 app.use("/users", userRouter);
 app.use("/events", eventRouter)
+app.use("/userevents", userEventRouter);
 app.use("/api/auth/", authRouter);
 
 
