@@ -9,6 +9,7 @@ userEventRouter.get("/userId/:id", userEventController.findUserEventByUserId);
 userEventRouter.get("/eventId/:id", userEventController.findUserEventByEventId);
 userEventRouter.post("/", userEventController.createUserEvent);
 userEventRouter.patch("/:id", userEventController.updateUserEventById);
+userEventRouter.patch("/eventid/:eventId/userid/:userId", userEventController.updateBuyForId);
 userEventRouter.delete("/:id", userEventController.deleteUserEventById);
 
 

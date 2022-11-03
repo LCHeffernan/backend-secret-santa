@@ -35,6 +35,13 @@ exports.createUserEvent = async (req, res) => {
     res.status(200).json(userEventUpdate);
   };
 
+  exports.updateBuyForId = async (req, res) => {
+    const { eventId, userId } = req.params;
+    console.log( eventId, userId);
+    const userUpdateBuyFor = await UserEvents.update(req.body, { where: { UserId: userId, EventId: eventId } });
+    res.status(200).json(userUpdateBuyFor);
+  };
+
   exports.deleteUserEventById = async (req, res) => {
     const { id } = req.params;
     const userEventDeleted = await UserEvents.destroy({ where: { id: id } });
