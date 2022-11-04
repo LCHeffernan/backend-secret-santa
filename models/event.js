@@ -34,11 +34,14 @@ module.exports = (connection, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
-
-        // user_id: {
-        //     type: DataTypes.INT(FK),
-        //     allowNull: false,
-        // },
+        drawn: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            validate: {
+                notNull: [true],
+                msg: "We need a boolean value"
+            }
+        }
     };
 
     const eventModel = connection.define("Event", schema);
