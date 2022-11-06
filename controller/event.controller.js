@@ -1,4 +1,4 @@
-const { Event } = require("../models");
+const { Event, User } = require("../models");
 
 exports.findEvent = async (_, res) => {
     const allEvent = await Event.findAll();
@@ -7,7 +7,7 @@ exports.findEvent = async (_, res) => {
 
 exports.findEventById = async (req, res) => {
     const { id } = req.params;
-    const allEvent = await Event.findAll({ where: { id: id } });
+    const allEvent = await Event.findAll({ where: { id: id }, include: { model: User, as: 'Admin' } });
     res.status(200).json(allEvent);
 }
 

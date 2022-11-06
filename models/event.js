@@ -38,9 +38,11 @@ module.exports = (connection, DataTypes) => {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             validate: {
-                notNull: [true],
-                msg: "We need a boolean value"
-            }
+                notNull: {
+                    args: [true],
+                    msg: "We need a boolean value",
+                },
+            },
         }
     };
 

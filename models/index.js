@@ -28,6 +28,7 @@ const setUpDatabase = () => {
   UserEvents.belongsTo(Event); //create foreign key of eventId in UserEvents model
 
   Event.belongsTo(User, { as: "Admin" });
+  User.hasMany(Event);
 
   connection.sync({ alter: true });
 
