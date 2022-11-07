@@ -69,6 +69,10 @@ module.exports = (connection, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    suggestions: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   };
 
   const UserModel = connection.define('User', schema);
