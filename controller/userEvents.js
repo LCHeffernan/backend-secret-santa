@@ -23,6 +23,12 @@ exports.findUserEventById = async (req, res) => {
     res.status(200).json(findUserEventByEventId);
   };
 
+  exports.findUserEventByUserAndEventId = async (req, res) => {
+    const { eventId, userId } = req.params;
+    const findUserEventByUserAndEventId = await UserEvents.findAll({ where: { UserId: userId, EventId: eventId } } );
+    res.status(200).json(findUserEventByUserAndEventId);
+  };
+
 exports.createUserEvent = async (req, res) => {
     const newUserEvent = await UserEvents.create(req.body);
     res.status(201).json(newUserEvent);
