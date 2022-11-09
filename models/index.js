@@ -19,11 +19,11 @@ const setUpDatabase = () => {
 
   User.hasMany(UserEvents);
   UserEvents.belongsTo(User);
-  UserEvents.belongsTo(User, { as: "BuyFor" }); 
-  Event.hasMany(UserEvents); 
-  UserEvents.belongsTo(Event); 
+  UserEvents.belongsTo(User, { as: 'BuyFor' });
+  Event.hasMany(UserEvents);
+  UserEvents.belongsTo(Event);
 
-  Event.belongsTo(User, { as: "Admin" });
+  Event.belongsTo(User, { as: 'Admin' });
   User.hasMany(Event);
 
   connection.sync({ alter: true });
@@ -31,7 +31,7 @@ const setUpDatabase = () => {
   return {
     User,
     Event,
-    UserEvents
+    UserEvents,
   };
 };
 
