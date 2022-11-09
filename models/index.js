@@ -17,11 +17,11 @@ const setUpDatabase = () => {
   const Event = EventModel(connection, Sequelize);
   const UserEvents = UserEventsModel(connection, Sequelize);
 
-  User.hasMany(UserEvents); //creates connection. One thing - it allows us to use {include: User} when returning data
-  UserEvents.belongsTo(User); //create foreign key of userId in UserEvents model
-  UserEvents.belongsTo(User, { as: "BuyFor" }); //create foreign key of userId (renamed as BuyForId) in UserEvents model
-  Event.hasMany(UserEvents); //create connection. One thing - it allows us to use {include: Event} when returning data
-  UserEvents.belongsTo(Event); //create foreign key of eventId in UserEvents model
+  User.hasMany(UserEvents);
+  UserEvents.belongsTo(User);
+  UserEvents.belongsTo(User, { as: "BuyFor" }); 
+  Event.hasMany(UserEvents); 
+  UserEvents.belongsTo(Event); 
 
   Event.belongsTo(User, { as: "Admin" });
   User.hasMany(Event);
