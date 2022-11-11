@@ -82,7 +82,7 @@ describe('/users', () => {
 
   describe('with records in the database', () => {
     let users;
-    const error404Message = 'The user could not be found.';
+    const error404Message = 'Entry not found.';
 
     beforeEach(async () => {
       users = await Promise.all([
@@ -119,5 +119,23 @@ describe('/users', () => {
       });
     });
 
+    describe('GET /users/:id', () => {
+      it('gets users record by id', async () => {
+        const user = users[0];
+        const response = await request(app).get(`/users/${user.id}`);
+
+        expect(response.status).to.equal(200);
+        expect(response.body.first_name).to.equal(user.first_name);
+        expect(response.body.last_name).to.equal(user.last_name);
+        expect(response.body.email).to.equal(user.email);
+        expect(response.body.password).to.equal(user.password);
+      });
+
+      it('returns a 404 if the user does not exist', async () => {
+        const response = await request(app).get('/users/12345');
+        expect(response.status).to.equal(404);
+        expect(response.body.error).to.equal(error404Message);
+      });
+    });
   });
 });
