@@ -33,10 +33,12 @@ app.use("/userevents", userEventRouter);
 app.use("/api/auth/", authRouter);
 
 
-const PORT = 3000;
+const PORT = 3003;
 
 const APP_PORT = PORT || 4000;
 
 app.listen(APP_PORT, () => {
     console.log(`App is listening on port ${APP_PORT}`);
 });
+
+module.exports = app;

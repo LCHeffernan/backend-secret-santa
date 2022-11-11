@@ -1,19 +1,31 @@
 const { User } = require('../models');
 
 exports.findUser = async (_, res) => {
-  const allUser = await User.findAll();
-  res.status(200).json(allUser);
+  try {
+    const allUser = await User.findAll();
+    res.status(200).json(allUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 exports.findUserById = async (req, res) => {
   const { id } = req.params;
-  const allUser = await User.findAll({ where: { id: id } });
-  res.status(200).json(allUser);
+  try {
+    const allUser = await User.findAll({ where: { id: id } });
+    res.status(200).json(allUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 exports.createUser = async (req, res) => {
-  const newUser = await User.create(req.body);
-  res.status(201).json(newUser);
+  try {
+    const newUser = await User.create(req.body);
+    res.status(201).json(newUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 exports.updateUserById = async (req, res) => {
@@ -29,9 +41,9 @@ exports.deleteUserById = async (req, res) => {
 };
 
 exports.allAccess = (req, res) => {
-  res.status(200).send("Public Content.")
-}
+  res.status(200).send('Public Content.');
+};
 
 exports.userBoard = (req, res) => {
-  res.status(200).send("User Content")
-}
+  res.status(200).send('User Content');
+};
