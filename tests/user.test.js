@@ -2,7 +2,6 @@ const { expect } = require('chai');
 const request = require('supertest');
 const { User } = require('../models/index');
 const app = require('../index');
-const user = require('../models/user');
 
 describe('/users', () => {
   before(async () => User.sequelize.sync());
@@ -26,11 +25,12 @@ describe('/users', () => {
 
         expect(response.status).to.equal(201);
         expect(response.body.first_name).to.equal('John');
-        expect(response.body.last_name).to.equal('Smith');
-        expect(response.body.password).to.equal('Password1');
-        expect(response.body.email).to.equal('test@test.com');
         expect(newUserRecord.first_name).to.equal('John');
+        expect(response.body.last_name).to.equal('Smith');
         expect(newUserRecord.last_name).to.equal('Smith');
+        expect(response.body.email).to.equal('test@test.com');
+        expect(newUserRecord.email).to.equal('test@test.com');
+        expect(response.body.password).to.equal('Password1');
         expect(newUserRecord.password).to.equal('Password1');
       });
 

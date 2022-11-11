@@ -33,7 +33,7 @@ app.use("/userevents", userEventRouter);
 app.use("/api/auth/", authRouter);
 
 
-const PORT = 3003;
+const PORT = 3000;
 
 const APP_PORT = PORT || 4000;
 
