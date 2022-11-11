@@ -2,6 +2,7 @@ const { expect } = require('chai');
 const request = require('supertest');
 const { Event, User } = require('../models/index');
 const app = require('../index');
+const { response } = require('../index');
 
 describe('/events', () => {
   before(async () => Event.sequelize.sync());
@@ -126,6 +127,42 @@ describe('/events', () => {
       it('returns a 404 if the event does not exist', async () => {
         const response = await request(app).get('/events/12345');
 
+        expect(response.status).to.equal(404);
+        expect(response.body.error).to.equal(error404Message);
+      });
+    });
+
+    describe('PATCH /events/:id', () => {
+      it('updates title by id', async () => {
+        const event = events[0];
+        const response = await request(app)
+          .patch(`/events/${event.id}`)
+          .send({ title: 'update test xmas' });
+        const updatedEventRecord = await Event.findByPk(event.id, {
+          raw: true,
+        });
+
+        expect(response.status).to.equal(200);
+        expect(updatedEventRecord.title).to.equal('update test xmas');
+      });
+
+      it('updates drawn by id', async () => {
+        const event = events[0];
+        const response = await request(app)
+          .patch(`/events/${event.id}`)
+          .send({ drawn: true });
+        const updatedEventRecord = await Event.findByPk(event.id, {
+          raw: true,
+        });
+
+        expect(response.status).to.equal(200);
+        expect(updatedEventRecord.drawn).to.equal(true);
+      });
+
+      it('returns a 404 if the event does not exist', async () => {
+        const response = await request(app)
+          .patch('/events/12345')
+          .send({ drawn: true });
         expect(response.status).to.equal(404);
         expect(response.body.error).to.equal(error404Message);
       });

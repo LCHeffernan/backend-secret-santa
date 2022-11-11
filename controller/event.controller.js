@@ -32,8 +32,17 @@ exports.createEvent = async (req, res) => {
 
 exports.updateEventById = async (req, res) => {
   const { id } = req.params;
-  const eventUpdate = await Event.update(req.body, { where: { id: id } });
-  res.status(200).json(eventUpdate);
+  try {
+    const findEntryByPk = await Event.findByPk(id);
+    if (!findEntryByPk) {
+      res.status(404).json({ error: 'Entry not found.' });
+    } else {
+      const eventUpdate = await Event.update(req.body, { where: { id: id } });
+      res.status(200).json(eventUpdate);
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 exports.deleteEventById = async (req, res) => {
