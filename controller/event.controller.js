@@ -7,11 +7,18 @@ exports.findEvent = async (_, res) => {
 
 exports.findEventById = async (req, res) => {
   const { id } = req.params;
-  const allEvent = await Event.findAll({
-    where: { id: id },
-    include: { model: User, as: 'Admin' },
-  });
-  res.status(200).json(allEvent);
+  try {
+    const allEvent = await Event.findByPk(id, {
+      include: { model: User, as: 'Admin' },
+    });
+    if (!allEvent) {
+      res.status(404).json({ error: 'Entry not found.' });
+    } else {
+      res.status(200).json(allEvent);
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 exports.createEvent = async (req, res) => {
