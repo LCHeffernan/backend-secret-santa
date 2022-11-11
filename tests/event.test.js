@@ -167,5 +167,23 @@ describe('/events', () => {
         expect(response.body.error).to.equal(error404Message);
       });
     });
+
+    describe('DELETE /events/:id', () => {
+      it('deletes event by id', async () => {
+        const event = events[0];
+        const response = await request(app).delete(`/events/${event.id}`);
+        const deleteEvent = await Event.findByPk(event.id, { raw: true });
+
+        expect(response.status).to.equal(204);
+        expect(deleteEvent).to.equal(null);
+      });
+
+      it('returns a 404 if event does not exist', async () => {
+        const response = await request(app).delete('/events/12345');
+
+        expect(response.status).to.equal(404);
+        expect(response.body.error).to.equal(error404Message);
+      });
+    });
   });
 });
