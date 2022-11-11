@@ -1,12 +1,8 @@
 const { User } = require('../models');
 
 exports.findUser = async (_, res) => {
-  try {
     const allUser = await User.findAll();
     res.status(200).json(allUser);
-  } catch (err) {
-    res.status(500).json(err);
-  }
 };
 
 exports.findUserById = async (req, res) => {
