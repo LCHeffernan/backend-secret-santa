@@ -30,14 +30,32 @@ exports.createUser = async (req, res) => {
 
 exports.updateUserById = async (req, res) => {
   const { id } = req.params;
-  const userUpdate = await User.update(req.body, { where: { id: id } });
-  res.status(200).json(userUpdate);
+  try {
+    const findEntryById = await User.findByPk(id);
+    if (!findEntryById) {
+      res.status(404).json({ error: 'Entry not found.' });
+    } else {
+      const userUpdate = await User.update(req.body, { where: { id: id } });
+      res.status(200).json(userUpdate);
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 exports.deleteUserById = async (req, res) => {
   const { id } = req.params;
-  const userDeleted = await User.destroy({ where: { id: id } });
-  res.status(200).json(userDeleted);
+  try{
+    const findEntryById = await User.findByPk(id);
+    if(!findEntryById){
+      res.status(404).json({ error: 'Entry not found.' });
+    } else {
+      const userDeleted = await User.destroy({ where: { id: id } });
+      res.status(204).json(userDeleted);
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 exports.allAccess = (req, res) => {

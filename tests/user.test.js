@@ -137,5 +137,57 @@ describe('/users', () => {
         expect(response.body.error).to.equal(error404Message);
       });
     });
+
+    describe('PATCH /users/:id', () => {
+      it('updates users email by id', async () => {
+        const user = users[0];
+        const response = await request(app)
+          .patch(`/users/${user.id}`)
+          .send({ email: 'newtest@test.com' });
+        const updatedUserRecord = await User.findByPk(user.id, { raw: true });
+
+        expect(response.status).to.equal(200);
+        expect(updatedUserRecord.email).to.equal('newtest@test.com');
+      });
+
+      it('updates users likes and dislikes', async () => {
+        const user = users[0];
+        const response = await request(app)
+          .patch(`/users/${user.id}`)
+          .send({ likes: 'testing', dislikes: 'testing1, testing2' });
+        const updatedUserRecord = await User.findByPk(user.id, { raw: true });
+
+        expect(response.status).to.equal(200);
+        expect(updatedUserRecord.likes).to.equal('testing');
+        expect(updatedUserRecord.dislikes).to.equal('testing1, testing2');
+      });
+
+      it('returns a 404 if the user does not exist', async () => {
+        const response = await request(app)
+          .patch('/users/12345')
+          .send({ likes: 'testing', dislikes: 'testing1, testing2' });
+
+        expect(response.status).to.equal(404);
+        expect(response.body.error).to.equal(error404Message);
+      });
+    });
+
+    describe('DELETE /users/:id', () => {
+      it('deletes user record by id', async () => {
+        const user = users[0];
+        const response = await request(app).delete(`/users/${user.id}`);
+        const deleteUser = await User.findByPk(user.id, { raw: true });
+
+        expect(response.status).to.equal(204);
+        expect(deleteUser).to.equal(null);
+      });
+
+      it('returns 404 if user record does not exist', async () => {
+        const response = await request(app).delete('/users/12345');
+
+        expect(response.status).to.equal(404);
+        expect(response.body.error).to.equal(error404Message);
+      });
+    });
   });
 });
