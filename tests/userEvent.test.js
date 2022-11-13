@@ -76,6 +76,10 @@ describe('/userevents', () => {
           BuyForId: users[0].id,
           EventId: events[0].id,
         }),
+        UserEvents.create({
+          UserId: users[1].id,
+          EventId: events[0].id,
+        }),
       ]);
     });
 
@@ -84,7 +88,7 @@ describe('/userevents', () => {
         const response = await request(app).get('/userevents');
 
         expect(response.status).to.equal(200);
-        expect(response.body.length).to.equal(2);
+        expect(response.body.length).to.equal(3);
 
         response.body.forEach((userEvent) => {
           const expected = userEvents.find((item) => item.id === userEvent.id);
@@ -117,71 +121,94 @@ describe('/userevents', () => {
     });
 
     describe('GET /userevents/userId/:id', () => {
-        it('gets userEvent record by user id', async () => {
-          const userEvent = userEvents[0];
-          const response = await request(app).get(`/userevents/userId/${userEvent.UserId}`);
-          expect(response.status).to.equal(200);
+      it('gets userEvent record by user id', async () => {
+        const userEvent = userEvents[0];
+        const response = await request(app).get(
+          `/userevents/userId/${userEvent.UserId}`
+        );
+        expect(response.status).to.equal(200);
 
-          response.body.forEach((userEvent) => {
-            const expected = userEvents.find((item) => item.id === userEvent.id);
-  
-            expect(userEvent.UserId).to.equal(expected.UserId);
-            expect(userEvent.BuyForId).to.equal(expected.BuyForId);
-            expect(userEvent.AdminId).to.equal(expected.AdminId);
-          });
-        });
-  
-       it('returns an empty array if userEvent does not exist', async () => {
-          const response = await request(app).get('/userevents/userId/12345');
-  
-          expect(response.status).to.equal(200);
-          expect(response.body.length).to.equal(0);
+        response.body.forEach((userEvent) => {
+          const expected = userEvents.find((item) => item.id === userEvent.id);
+
+          expect(userEvent.UserId).to.equal(expected.UserId);
+          expect(userEvent.BuyForId).to.equal(expected.BuyForId);
+          expect(userEvent.AdminId).to.equal(expected.AdminId);
         });
       });
 
-      describe('GET /userevents/eventId/:id', () => {
-        it('gets userEvent record by event id', async () => {
-          const userEvent = userEvents[0];
-          const response = await request(app).get(`/userevents/eventId/${userEvent.EventId}`);
-          expect(response.status).to.equal(200);
+      it('returns an empty array if userEvent does not exist', async () => {
+        const response = await request(app).get('/userevents/userId/12345');
 
-          response.body.forEach((userEvent) => {
-            const expected = userEvents.find((item) => item.id === userEvent.id);
-  
-            expect(userEvent.UserId).to.equal(expected.UserId);
-            expect(userEvent.BuyForId).to.equal(expected.BuyForId);
-            expect(userEvent.AdminId).to.equal(expected.AdminId);
-          });
-        });
-  
-       it('returns an empty array if userEvent does not exist', async () => {
-          const response = await request(app).get('/userevents/eventId/12345');
-  
-          expect(response.status).to.equal(200);
-          expect(response.body.length).to.equal(0);
+        expect(response.status).to.equal(200);
+        expect(response.body.length).to.equal(0);
+      });
+    });
+
+    describe('GET /userevents/eventId/:id', () => {
+      it('gets userEvent record by event id', async () => {
+        const userEvent = userEvents[0];
+        const response = await request(app).get(
+          `/userevents/eventId/${userEvent.EventId}`
+        );
+        expect(response.status).to.equal(200);
+
+        response.body.forEach((userEvent) => {
+          const expected = userEvents.find((item) => item.id === userEvent.id);
+
+          expect(userEvent.UserId).to.equal(expected.UserId);
+          expect(userEvent.BuyForId).to.equal(expected.BuyForId);
+          expect(userEvent.AdminId).to.equal(expected.AdminId);
         });
       });
 
-      describe('GET /userevents/usereventsId/:id', () => {
-        it('gets userEvent record by userEvent id', async () => {
-          const userEvent = userEvents[0];
-          const response = await request(app).get(`/userevents/eventId/${userEvent.EventId}/userId/${userEvent.UserId}`);
-          expect(response.status).to.equal(200);
+      it('returns an empty array if userEvent does not exist', async () => {
+        const response = await request(app).get('/userevents/eventId/12345');
 
-          response.body.forEach((userEvent) => {
-            const expected = userEvents.find((item) => item.id === userEvent.id);
-  
-            expect(userEvent.UserId).to.equal(expected.UserId);
-            expect(userEvent.BuyForId).to.equal(expected.BuyForId);
-            expect(userEvent.AdminId).to.equal(expected.AdminId);
-          });
+        expect(response.status).to.equal(200);
+        expect(response.body.length).to.equal(0);
+      });
+    });
+
+    describe('GET /userevents/usereventsId/:id', () => {
+      it('gets userEvent record by userEvent id', async () => {
+        const userEvent = userEvents[0];
+        const response = await request(app).get(
+          `/userevents/eventId/${userEvent.EventId}/userId/${userEvent.UserId}`
+        );
+        expect(response.status).to.equal(200);
+
+        response.body.forEach((userEvent) => {
+          const expected = userEvents.find((item) => item.id === userEvent.id);
+
+          expect(userEvent.UserId).to.equal(expected.UserId);
+          expect(userEvent.BuyForId).to.equal(expected.BuyForId);
+          expect(userEvent.AdminId).to.equal(expected.AdminId);
         });
-  
-       it('returns an empty array if userEvent does not exist', async () => {
-          const response = await request(app).get('/userevents/eventId/12345/userId/12345');
-  
+      });
+
+      it('returns an empty array if userEvent does not exist', async () => {
+        const response = await request(app).get(
+          '/userevents/eventId/12345/userId/12345'
+        );
+
+        expect(response.status).to.equal(200);
+        expect(response.body.length).to.equal(0);
+      });
+    });
+
+    describe('PATCH /userevents/eventid/:eventId/userid/:userId"', () => {
+        it('updates userevent BuyForId by event and user id', async () => {
+          const userEvent = userEvents[2];
+          const response = await request(app)
+            .patch(`/userevents/eventid/${userEvent.EventId}/userid/${userEvent.UserId}`)
+            .send({ BuyForId: 1 });
+          const updatedUserEventRecord = await UserEvents.findByPk(userEvent.id, {
+            raw: true,
+          });
+    
           expect(response.status).to.equal(200);
-          expect(response.body.length).to.equal(0);
+          expect(updatedUserEventRecord.BuyForId).to.equal(1);
         });
       });
   });
