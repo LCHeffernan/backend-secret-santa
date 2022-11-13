@@ -12,7 +12,7 @@ exports.findUser = async (_, res) => {
 exports.findUserById = async (req, res) => {
   const { id } = req.params;
   try {
-    const allUser = await User.findByPk(id);
+    const allUser = await User.findAll({where: {id: id}});
     if (!allUser) {
       res.status(404).json({ error: 'Entry not found.' });
     } else {
@@ -62,10 +62,10 @@ exports.deleteUserById = async (req, res) => {
   }
 };
 
-exports.allAccess = (req, res) => {
+exports.allAccess = (_, res) => {
   res.status(200).send('Public Content.');
 };
 
-exports.userBoard = (req, res) => {
+exports.userBoard = (_, res) => {
   res.status(200).send('User Content');
 };

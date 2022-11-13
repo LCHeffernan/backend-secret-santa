@@ -11,16 +11,16 @@ exports.findUserEvent = async (_, res) => {
 
 exports.findUserEventById = async (req, res) => {
   const { id } = req.params;
-  try {
+  // try {
     const oneUserEvent = await UserEvents.findByPk(id);
-    if (!oneUserEvent) {
-      res.status(404).json({ error: 'Entry not found.' });
-    } else {
+    // if (!oneUserEvent) {
+    //   res.status(404).json({ error: 'Entry not found.' });
+    // } else {
       res.status(200).json(oneUserEvent);
-    }
-  } catch (err) {
-    res.status(500).json(err);
-  }
+    // }
+  // } catch (err) {
+  //   res.status(500).json(err);
+  // }
 };
 
 exports.findUserEventByUserId = async (req, res) => {
