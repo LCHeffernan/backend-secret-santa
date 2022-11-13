@@ -4,7 +4,13 @@ module.exports = (connection, DataTypes) => {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notNull: {
+            args: [true],
+            msg: 'We need an id',
+          },
+        },
       },
     };
   

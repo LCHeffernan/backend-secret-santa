@@ -1,8 +1,12 @@
 const { Event, User } = require('../models');
 
 exports.findEvent = async (_, res) => {
+    try {
   const allEvent = await Event.findAll();
   res.status(200).json(allEvent);
+} catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 exports.findEventById = async (req, res) => {

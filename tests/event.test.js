@@ -2,7 +2,6 @@ const { expect } = require('chai');
 const request = require('supertest');
 const { Event, User } = require('../models/index');
 const app = require('../index');
-const { response } = require('../index');
 
 describe('/events', () => {
   before(async () => Event.sequelize.sync());
