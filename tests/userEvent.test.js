@@ -92,10 +92,19 @@ describe('/userevents', () => {
 
         response.body.forEach((userEvent) => {
           const expected = userEvents.find((item) => item.id === userEvent.id);
+          const expectedEvent = events.find(
+            (item2) => item2.id === userEvent.EventId
+          );
 
           expect(userEvent.UserId).to.equal(expected.UserId);
           expect(userEvent.BuyForId).to.equal(expected.BuyForId);
           expect(userEvent.AdminId).to.equal(expected.AdminId);
+          expect(userEvent.Event.title).to.equal(expectedEvent.title);
+          expect(userEvent.Event.exchange_date).to.equal(
+            expectedEvent.exchange_date
+          );
+          expect(userEvent.Event.budget).to.equal(expectedEvent.budget);
+          expect(userEvent.Event.drawn).to.equal(expectedEvent.drawn);
         });
       });
     });
@@ -114,7 +123,7 @@ describe('/userevents', () => {
 
       it('returns a 404 if userEvent does not exist', async () => {
         const response = await request(app).get('/userevents/12345');
-  
+
         expect(response.status).to.equal(404);
         expect(response.body.error).to.equal(error404Message);
       });
@@ -130,10 +139,17 @@ describe('/userevents', () => {
 
         response.body.forEach((userEvent) => {
           const expected = userEvents.find((item) => item.id === userEvent.id);
+          const expectedUser = users.find(
+            (item2) => item2.id === userEvent.BuyForId
+          );
 
           expect(userEvent.UserId).to.equal(expected.UserId);
           expect(userEvent.BuyForId).to.equal(expected.BuyForId);
           expect(userEvent.AdminId).to.equal(expected.AdminId);
+          expect(userEvent.BuyFor.first_name).to.equal(expectedUser.first_name);
+          expect(userEvent.BuyFor.last_name).to.equal(expectedUser.last_name);
+          expect(userEvent.BuyFor.email).to.equal(expectedUser.email);
+          expect(userEvent.BuyFor.password).to.equal(expectedUser.password);
         });
       });
 
@@ -155,10 +171,26 @@ describe('/userevents', () => {
 
         response.body.forEach((userEvent) => {
           const expected = userEvents.find((item) => item.id === userEvent.id);
+          const expectedUser = users.find(
+            (item2) => item2.id === userEvent.UserId
+          );
+          const expectedEvent = events.find(
+            (item2) => item2.id === userEvent.EventId
+          );
 
           expect(userEvent.UserId).to.equal(expected.UserId);
           expect(userEvent.BuyForId).to.equal(expected.BuyForId);
           expect(userEvent.AdminId).to.equal(expected.AdminId);
+          expect(userEvent.User.first_name).to.equal(expectedUser.first_name);
+          expect(userEvent.User.last_name).to.equal(expectedUser.last_name);
+          expect(userEvent.User.email).to.equal(expectedUser.email);
+          expect(userEvent.User.password).to.equal(expectedUser.password);
+          expect(userEvent.Event.title).to.equal(expectedEvent.title);
+          expect(userEvent.Event.exchange_date).to.equal(
+            expectedEvent.exchange_date
+          );
+          expect(userEvent.Event.budget).to.equal(expectedEvent.budget);
+          expect(userEvent.Event.drawn).to.equal(expectedEvent.drawn);
         });
       });
 
