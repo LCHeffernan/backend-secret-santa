@@ -73,13 +73,34 @@ describe('/events', () => {
     const error404Message = 'Entry not found.';
 
     beforeEach(async () => {
+      users = await Promise.all([
+        User.create({
+          first_name: 'John',
+          last_name: 'Smith',
+          email: 'test@test.com',
+          password: 'Password1',
+        }),
+        User.create({
+          first_name: 'Jane',
+          last_name: 'Doe',
+          email: 'testing@testing.com',
+          password: 'Password1',
+        }),
+      ]);
       events = await Promise.all([
         Event.create({
           title: 'test xmas',
           exchange_date: 2022 - 11 - 15,
           budget: 10,
-          participants: 'John',
+          participants: 'Jon',
           drawn: false,
+          AdminId: users[0].id,
+          // Admin: {
+          //   first_name: 'John',
+          //  last_name: 'Smith',
+          //  email: 'test@test.com',
+          //  password: 'Password1',
+          // }
         }),
         Event.create({
           title: 'test2 xmas',
@@ -87,6 +108,13 @@ describe('/events', () => {
           budget: 5,
           participants: 'Jane',
           drawn: true,
+          AdminId: users[1].id,
+          // Admin: {
+          //   first_name: 'Jane',
+          //   last_name: 'Doe',
+          //   email: 'testing@testing.com',
+          //   password: 'Password1',
+          // }
         }),
       ]);
     });
@@ -117,12 +145,18 @@ describe('/events', () => {
 
         response.body.forEach((event) => {
           const expected = events.find((item) => item.id === event.id);
-
+          const expectedAdmin = users.find(
+            (item2) => item2.id === event.AdminId
+          );
           expect(event.title).to.equal(expected.title);
           expect(event.exchange_date).to.equal(expected.exchange_date);
           expect(event.budget).to.equal(expected.budget);
           expect(event.participants).to.equal(expected.participants);
           expect(event.drawn).to.equal(expected.drawn);
+          expect(event.Admin.first_name).to.equal(expectedAdmin.first_name);
+          expect(event.Admin.last_name).to.equal(expectedAdmin.last_name);
+          expect(event.Admin.email).to.equal(expectedAdmin.email);
+          expect(event.Admin.password).to.equal(expectedAdmin.password);
         });
       });
 
