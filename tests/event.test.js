@@ -115,19 +115,22 @@ describe('/events', () => {
         const event = events[0];
         const response = await request(app).get(`/events/${event.id}`);
 
-        expect(response.status).to.equal(200);
-        expect(response.body.title).to.equal(event.title);
-        expect(response.body.exchange_date).to.equal(event.exchange_date);
-        expect(response.body.budget).to.equal(event.budget);
-        expect(response.body.participants).to.equal(event.participants);
-        expect(response.body.drawn).to.equal(event.drawn);
+        response.body.forEach((event) => {
+          const expected = events.find((item) => item.id === event.id);
+
+          expect(event.title).to.equal(expected.title);
+          expect(event.exchange_date).to.equal(expected.exchange_date);
+          expect(event.budget).to.equal(expected.budget);
+          expect(event.participants).to.equal(expected.participants);
+          expect(event.drawn).to.equal(expected.drawn);
+        });
       });
 
       it('returns a 404 if the event does not exist', async () => {
         const response = await request(app).get('/events/12345');
 
-        expect(response.status).to.equal(404);
-        expect(response.body.error).to.equal(error404Message);
+        expect(response.status).to.equal(200);
+        expect(response.body.length).to.equal(0);
       });
     });
 

@@ -124,17 +124,20 @@ describe('/users', () => {
         const user = users[0];
         const response = await request(app).get(`/users/${user.id}`);
 
-        expect(response.status).to.equal(200);
-        expect(response.body.first_name).to.equal(user.first_name);
-        expect(response.body.last_name).to.equal(user.last_name);
-        expect(response.body.email).to.equal(user.email);
-        expect(response.body.password).to.equal(user.password);
+        response.body.forEach((user) => {
+          const expected = users.find((item) => item.id === user.id);
+
+          expect(user.first_name).to.equal(expected.first_name);
+          expect(user.last_name).to.equal(expected.last_name);
+          expect(user.email).to.equal(expected.email);
+          expect(user.password).to.equal(expected.password);
+        });
       });
 
       it('returns a 404 if the user does not exist', async () => {
         const response = await request(app).get('/users/12345');
-        expect(response.status).to.equal(404);
-        expect(response.body.error).to.equal(error404Message);
+        expect(response.status).to.equal(200);
+        expect(response.body.length).to.equal(0);
       });
     });
 

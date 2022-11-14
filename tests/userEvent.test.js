@@ -114,7 +114,7 @@ describe('/userevents', () => {
 
       it('returns a 404 if userEvent does not exist', async () => {
         const response = await request(app).get('/userevents/12345');
-
+  
         expect(response.status).to.equal(404);
         expect(response.body.error).to.equal(error404Message);
       });
@@ -198,45 +198,51 @@ describe('/userevents', () => {
     });
 
     describe('PATCH /userevents/eventid/:eventId/userid/:userId"', () => {
-        it('updates userevent BuyForId by event and user id', async () => {
-          const userEvent = userEvents[2];
-          const response = await request(app)
-            .patch(`/userevents/eventid/${userEvent.EventId}/userid/${userEvent.UserId}`)
-            .send({ BuyForId: 1 });
-          const updatedUserEventRecord = await UserEvents.findByPk(userEvent.id, {
-            raw: true,
-          });
-    
-          expect(response.status).to.equal(200);
-          expect(updatedUserEventRecord.BuyForId).to.equal(1);
+      it('updates userevent BuyForId by event and user id', async () => {
+        const userEvent = userEvents[2];
+        const response = await request(app)
+          .patch(
+            `/userevents/eventid/${userEvent.EventId}/userid/${userEvent.UserId}`
+          )
+          .send({ BuyForId: 1 });
+        const updatedUserEventRecord = await UserEvents.findByPk(userEvent.id, {
+          raw: true,
         });
 
-        it('returns a 404 if the userevent does not exist', async () => {
-            const response = await request(app)
-              .patch('/userevents/12345')
-              .send({ BuyForId: 1 });
-    
-            expect(response.status).to.equal(404);
-            expect(response.body.error).to.equal(error404Message);
-          });
+        expect(response.status).to.equal(200);
+        expect(updatedUserEventRecord.BuyForId).to.equal(1);
       });
 
-      describe('DELETE /userevents/:id', () => {
-        it('deletes userevent record by id', async () => {
-          const userEvent = userEvents[2];
-          const response = await request(app).delete(`/userevents/${userEvent.id}`);
-          const deleteUserEvent = await UserEvents.findByPk(userEvent.id, { raw: true });
-  
-          expect(response.status).to.equal(204);
-          expect(deleteUserEvent).to.equal(null);
-        });
-  
-        it('returns 404 if userevent record does not exist', async () => {
-          const response = await request(app).delete('/userevents/12345');
-  
-          expect(response.status).to.equal(404);
-          expect(response.body.error).to.equal(error404Message);
-        });
+      it('returns a 404 if the userevent does not exist', async () => {
+        const response = await request(app)
+          .patch('/userevents/12345')
+          .send({ BuyForId: 1 });
+
+        expect(response.status).to.equal(404);
+        expect(response.body.error).to.equal(error404Message);
       });
+    });
+
+    describe('DELETE /userevents/:id', () => {
+      it('deletes userevent record by id', async () => {
+        const userEvent = userEvents[2];
+        const response = await request(app).delete(
+          `/userevents/${userEvent.id}`
+        );
+        const deleteUserEvent = await UserEvents.findByPk(userEvent.id, {
+          raw: true,
+        });
+
+        expect(response.status).to.equal(204);
+        expect(deleteUserEvent).to.equal(null);
+      });
+
+      it('returns 404 if userevent record does not exist', async () => {
+        const response = await request(app).delete('/userevents/12345');
+
+        expect(response.status).to.equal(404);
+        expect(response.body.error).to.equal(error404Message);
+      });
+    });
   });
 });
