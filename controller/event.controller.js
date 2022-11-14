@@ -12,12 +12,10 @@ exports.findEvent = async (_, res) => {
 exports.findEventById = async (req, res) => {
   const { id } = req.params;
   try {
-    const allEvent = await Event.findAll(
-      { where: { id: id } },
-      {
-        include: { model: User, as: 'Admin' },
-      }
-    );
+    const allEvent = await Event.findAll({
+      where: { id: id },
+      include: { model: User, as: 'Admin' },
+    });
     if (!allEvent) {
       res.status(404).json({ error: 'Entry not found.' });
     } else {
