@@ -30,11 +30,7 @@ exports.findUserEventByUserId = async (req, res) => {
       where: { UserId: id },
       include: [User, Event, { model: User, as: 'BuyFor' }],
     });
-    if (!findUserEventByUserId) {
-      res.status(404).json({ error: 'Entry no found' });
-    } else {
       res.status(200).json(findUserEventByUserId);
-    }
   } catch (err) {
     res.status(500).json(err);
   }
@@ -47,11 +43,7 @@ exports.findUserEventByEventId = async (req, res) => {
       where: { EventId: id },
       include: [User, Event],
     });
-    if (!findUserEventByEventId) {
-      res.status(404).json({ error: 'Entry not found' });
-    } else {
       res.status(200).json(findUserEventByEventId);
-    }
   } catch (err) {
     res.status(500).json(err);
   }
@@ -63,11 +55,7 @@ exports.findUserEventByUserAndEventId = async (req, res) => {
     const findUserEventByUserAndEventId = await UserEvents.findAll({
       where: { UserId: userId, EventId: eventId },
     });
-    if (!findUserEventByUserAndEventId) {
-      res.status(404).json({ error: 'Entry not found.' });
-    } else {
       res.status(200).json(findUserEventByUserAndEventId);
-    }
   } catch (err) {
     res.status(500).json(err);
   }
@@ -102,18 +90,10 @@ exports.updateUserEventById = async (req, res) => {
 exports.updateBuyForId = async (req, res) => {
   const { eventId, userId } = req.params;
   try {
-    const findUserEventByUserAndEventId = await UserEvents.findAll({
-      where: { UserId: userId, EventId: eventId },
-    });
-    if (!findUserEventByUserAndEventId) {
-      res.status(404).json({ error: 'Entry not found.' });
-    } else {
-      console.log(eventId, userId);
       const userUpdateBuyFor = await UserEvents.update(req.body, {
         where: { UserId: userId, EventId: eventId },
       });
       res.status(200).json(userUpdateBuyFor);
-    }
   } catch (err) {
     res.status(500).json(err);
   }

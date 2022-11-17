@@ -7,7 +7,7 @@
     "prestart": "node scripts/create-database.js",
     "start": "nodemon -r dotenv/config index.js",
     "pretest": "node scripts/create-database.js test",
-    "test": "mocha tests/**/*.js --exit --recursive --timeout 60000 --file ./tests/test-setup.js",
+    "test": " nyc mocha tests/**/*.js --exit --recursive --timeout 60000 --file ./tests/test-setup.js",
     "posttest": "node scripts/drop-database.js"
   },
   "repository": {
@@ -31,6 +31,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "mocha": "^10.1.0",
     "nodemon": "^2.0.20",
+    "nyc": "^15.1.0",
     "supertest": "^6.3.0"
   },
   "dependencies": {
