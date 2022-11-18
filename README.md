@@ -1,9 +1,10 @@
 # Santa Draws.
 ___
-## Description.
-This is the backend for the Santa Draws app [(click here for the frontend)](https://github.com/SuzBarnes/secret-santa) which involved using Postgres, Sequelize and express.js, which was tested using Mocha/Chai and Supertest, the tests can be found in the tests folder.
 
-A group project to create an app for secret Santa events. Users can register for an account, create an event and invite others. Users can also add their likes or dislikes and make anonymous gift suggestions for others. For the backend we created an express API using Postgres and Sequelize. It implemented CRUD requests and asynchronous techniques. We used middleware to check, upon registration, if an email already existed in the database. The password was then hashed using bcrypt and a jwt was generated upon login. The relationship between the models can be seen in the ERD screenshot below.
+This is the backend for the Santa Draws app [(frontend repo here)](https://github.com/SuzBarnes/secret-santa) This was a group project that was part of the Manchester Codes bootcamp course. You can view the presentation explaining this app [here](https://www.youtube.com/watch?app=desktop&v=CUrmqMA-IB0&feature=youtu.be).
+___
+## Description.
+An API to create secret Santa users and events. Users can register for an account, create an event and invite others. Users can also add their likes or dislikes and make anonymous gift suggestions for others. For the backend we created an express API using Postgres and Sequelize. It implemented CRUD requests and asynchronous techniques and tested using Mocha/Chai and Supertest, the tests can be found in the tests folder. We used middleware to check, upon registration, if an email already existed in the database. The password was then hashed using bcrypt and a jwt was generated upon login. The relationship between the models can be seen in the ERD screenshot below.
 
 <img src="/images/ERD_santa_draws.png" width="603" height="216" alt="ERD - Entity Relationship Diagram" title="ERD - Entity Relationship Diagram"/>
 
