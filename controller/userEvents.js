@@ -30,7 +30,7 @@ exports.findUserEventByUserId = async (req, res) => {
       where: { UserId: id },
       include: [User, Event, { model: User, as: 'BuyFor' }],
     });
-      res.status(200).json(findUserEventByUserId);
+    res.status(200).json(findUserEventByUserId);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -43,7 +43,7 @@ exports.findUserEventByEventId = async (req, res) => {
       where: { EventId: id },
       include: [User, Event],
     });
-      res.status(200).json(findUserEventByEventId);
+    res.status(200).json(findUserEventByEventId);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -55,7 +55,7 @@ exports.findUserEventByUserAndEventId = async (req, res) => {
     const findUserEventByUserAndEventId = await UserEvents.findAll({
       where: { UserId: userId, EventId: eventId },
     });
-      res.status(200).json(findUserEventByUserAndEventId);
+    res.status(200).json(findUserEventByUserAndEventId);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -90,10 +90,10 @@ exports.updateUserEventById = async (req, res) => {
 exports.updateBuyForId = async (req, res) => {
   const { eventId, userId } = req.params;
   try {
-      const userUpdateBuyFor = await UserEvents.update(req.body, {
-        where: { UserId: userId, EventId: eventId },
-      });
-      res.status(200).json(userUpdateBuyFor);
+    const userUpdateBuyFor = await UserEvents.update(req.body, {
+      where: { UserId: userId, EventId: eventId },
+    });
+    res.status(200).json(userUpdateBuyFor);
   } catch (err) {
     res.status(500).json(err);
   }

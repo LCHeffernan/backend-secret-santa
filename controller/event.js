@@ -16,7 +16,7 @@ exports.findEventById = async (req, res) => {
       where: { id: id },
       include: { model: User, as: 'Admin' },
     });
-      res.status(200).json(allEvent);
+    res.status(200).json(allEvent);
   } catch (err) {
     res.status(500).json(err);
   }

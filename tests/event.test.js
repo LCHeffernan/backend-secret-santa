@@ -29,8 +29,6 @@ describe('/events', () => {
         expect(response.status).to.equal(201);
         expect(response.body.title).to.equal('test xmas');
         expect(newEventRecord.title).to.equal('test xmas');
-        // expect(response.body.exchange_date).to.equal(2022 - 11 - 15);
-        // expect(newEventRecord.exchange_date).to.equal(2022 - 11 - 15);
         expect(response.body.budget).to.equal(10);
         expect(newEventRecord.budget).to.equal(10);
         expect(response.body.participants).to.equal('John');
@@ -95,12 +93,6 @@ describe('/events', () => {
           participants: 'Jon',
           drawn: false,
           AdminId: users[0].id,
-          // Admin: {
-          //   first_name: 'John',
-          //  last_name: 'Smith',
-          //  email: 'test@test.com',
-          //  password: 'Password1',
-          // }
         }),
         Event.create({
           title: 'test2 xmas',
@@ -109,12 +101,6 @@ describe('/events', () => {
           participants: 'Jane',
           drawn: true,
           AdminId: users[1].id,
-          // Admin: {
-          //   first_name: 'Jane',
-          //   last_name: 'Doe',
-          //   email: 'testing@testing.com',
-          //   password: 'Password1',
-          // }
         }),
       ]);
     });

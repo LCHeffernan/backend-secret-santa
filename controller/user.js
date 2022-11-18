@@ -2,18 +2,18 @@ const { User } = require('../models');
 
 exports.findUser = async (_, res) => {
   try {
-  const allUser = await User.findAll();
-  res.status(200).json(allUser);
-} catch (err) {
-  res.status(500).json(err);
-}
+    const allUser = await User.findAll();
+    res.status(200).json(allUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 exports.findUserById = async (req, res) => {
   const { id } = req.params;
   try {
-    const allUser = await User.findAll({where: {id: id}});
-      res.status(200).json(allUser);
+    const allUser = await User.findAll({ where: { id: id } });
+    res.status(200).json(allUser);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -45,9 +45,9 @@ exports.updateUserById = async (req, res) => {
 
 exports.deleteUserById = async (req, res) => {
   const { id } = req.params;
-  try{
+  try {
     const findEntryById = await User.findByPk(id);
-    if(!findEntryById){
+    if (!findEntryById) {
       res.status(404).json({ error: 'Entry not found.' });
     } else {
       const userDeleted = await User.destroy({ where: { id: id } });
