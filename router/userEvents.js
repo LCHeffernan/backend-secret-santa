@@ -4,7 +4,7 @@ const userEventController = require('../controller/userEvents');
 const userEventRouter = express.Router();
 
 userEventRouter.get('/', userEventController.findUserEvent);
-userEventRouter.get('/:id', userEventController.findUserEventById);
+// userEventRouter.get('/:id', userEventController.findUserEventById);
 userEventRouter.get('/userId/:id', userEventController.findUserEventByUserId);
 userEventRouter.get('/eventId/:id', userEventController.findUserEventByEventId);
 userEventRouter.get(

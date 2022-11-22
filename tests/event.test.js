@@ -68,7 +68,7 @@ describe('/events', () => {
 
   describe('with records in the database', () => {
     let events;
-    const error404Message = 'Entry not found.';
+    const error404Message = 'The event could not be found.';
 
     beforeEach(async () => {
       users = await Promise.all([
@@ -191,9 +191,10 @@ describe('/events', () => {
     });
 
     describe('DELETE /events/:id', () => {
-      it('deletes event by id', async () => {
+      it('deletes event by id', async () => {  
         const event = events[0];
         const response = await request(app).delete(`/events/${event.id}`);
+         console.log('TEST');
         const deleteEvent = await Event.findByPk(event.id, { raw: true });
 
         expect(response.status).to.equal(204);

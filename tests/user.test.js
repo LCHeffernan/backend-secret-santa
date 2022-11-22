@@ -82,7 +82,7 @@ describe('/users', () => {
 
   describe('with records in the database', () => {
     let users;
-    const error404Message = 'Entry not found.';
+    const error404Message = 'The user could not be found.';
 
     beforeEach(async () => {
       users = await Promise.all([

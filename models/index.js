@@ -20,7 +20,7 @@ const setUpDatabase = () => {
   User.hasMany(UserEvents);
   UserEvents.belongsTo(User);
   UserEvents.belongsTo(User, { as: 'BuyFor' });
-  Event.hasMany(UserEvents);
+  Event.hasMany(UserEvents, {onDelete: 'CASCADE'});
   UserEvents.belongsTo(Event);
 
   Event.belongsTo(User, { as: 'Admin' });

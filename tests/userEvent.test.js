@@ -39,7 +39,7 @@ describe('/userevents', () => {
     let users;
     let events;
     let userEvents;
-    const error404Message = 'Entry not found.';
+    const error404Message = 'The userevents could not be found.';
 
     beforeEach(async () => {
       users = await Promise.all([
@@ -109,25 +109,25 @@ describe('/userevents', () => {
       });
     });
 
-    describe('GET /userevents/:id', () => {
-      it('gets userEvent record by id', async () => {
-        const userEvent = userEvents[0];
-        const response = await request(app).get(`/userevents/${userEvent.id}`);
+    // describe('GET /userevents/:id', () => {
+    //   it('gets userEvent record by id', async () => {
+    //     const userEvent = userEvents[0];
+    //     const response = await request(app).get(`/userevents/${userEvent.id}`);
 
-        expect(response.status).to.equal(200);
-        expect(response.body.id).to.equal(userEvent.id);
-        expect(response.body.UserId).to.equal(users[0].id);
-        expect(response.body.BuyForId).to.equal(users[1].id);
-        expect(response.body.EventId).to.equal(events[0].id);
-      });
+    //     expect(response.status).to.equal(200);
+    //     expect(response.body.id).to.equal(userEvent.id);
+    //     expect(response.body.UserId).to.equal(users[0].id);
+    //     expect(response.body.BuyForId).to.equal(users[1].id);
+    //     expect(response.body.EventId).to.equal(events[0].id);
+    //   });
 
-      it('returns a 404 if userEvent does not exist', async () => {
-        const response = await request(app).get('/userevents/12345');
+    //   it('returns a 404 if userEvent does not exist', async () => {
+    //     const response = await request(app).get('/userevents/12345');
 
-        expect(response.status).to.equal(404);
-        expect(response.body.error).to.equal(error404Message);
-      });
-    });
+    //     expect(response.status).to.equal(404);
+    //     expect(response.body.error).to.equal(error404Message);
+    //   });
+    // });
 
     describe('GET /userevents/userId/:id', () => {
       it('gets userEvent record by user id', async () => {

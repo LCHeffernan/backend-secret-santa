@@ -62,3 +62,19 @@ exports.signin = (req, res) => {
       res.status(500).send({ message: err.message }, console.log(err));
     });
 };
+
+// exports.changePassword = (req, res) => {
+//   User.findOne({
+//     where: {
+//       email: req.body.email,
+//     },
+//   }).then((user) => {
+//     let passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+//   });
+//   if (!passwordIsValid) {
+//     return res.status(401).send({
+//       // accessToken: null,
+//       message: 'Password does not match',
+//     });
+//   }
+// };
